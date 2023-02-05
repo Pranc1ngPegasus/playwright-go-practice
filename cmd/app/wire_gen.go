@@ -6,14 +6,58 @@
 
 package main
 
+import (
+	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/crawler/googleworkspace"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/crawler/googleworkspace/gmail"
+	googleworkspace2 "github.com/Pranc1ngPegasus/playwright-go-practice/domain/crawler/googleworkspace"
+	logger2 "github.com/Pranc1ngPegasus/playwright-go-practice/domain/logger"
+	tracer2 "github.com/Pranc1ngPegasus/playwright-go-practice/domain/tracer"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/client"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/configuration"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/logger"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/tracer"
+)
+
 // Injectors from wire.go:
 
 func initialize() (*app, error) {
-	mainApp := &app{}
+	loggerLogger, err := logger.NewLogger()
+	if err != nil {
+		return nil, err
+	}
+	configurationConfiguration, err := configuration.NewConfiguration()
+	if err != nil {
+		return nil, err
+	}
+	tracerTracer, err := tracer.NewTracer(configurationConfiguration)
+	if err != nil {
+		return nil, err
+	}
+	web, err := client.NewWeb()
+	if err != nil {
+		return nil, err
+	}
+	login, err := googleworkspace.NewLogin(loggerLogger, tracerTracer, web)
+	if err != nil {
+		return nil, err
+	}
+	safety, err := gmail.NewSafety(loggerLogger, tracerTracer, web)
+	if err != nil {
+		return nil, err
+	}
+	googleWorkspace := googleworkspace.NewGoogleWorkspace(tracerTracer, web, login, safety)
+	mainApp := &app{
+		logger:  loggerLogger,
+		tracer:  tracerTracer,
+		crawler: googleWorkspace,
+	}
 	return mainApp, nil
 }
 
 // wire.go:
 
 type app struct {
+	logger  logger2.Logger
+	tracer  tracer2.Tracer
+	crawler googleworkspace2.GoogleWorkspace
 }
