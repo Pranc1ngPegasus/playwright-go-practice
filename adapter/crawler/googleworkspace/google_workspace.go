@@ -9,7 +9,7 @@ import (
 	"github.com/Pranc1ngPegasus/playwright-go-practice/domain/tracer"
 	"github.com/google/wire"
 	"github.com/playwright-community/playwright-go"
-	"github.com/volatiletech/null/v8"
+	"github.com/volatiletech/null/v9"
 )
 
 var _ domain.GoogleWorkspace = (*GoogleWorkspace)(nil)
