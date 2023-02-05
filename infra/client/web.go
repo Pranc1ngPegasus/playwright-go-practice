@@ -6,7 +6,7 @@ import (
 	domain "github.com/Pranc1ngPegasus/playwright-go-practice/domain/client"
 	"github.com/google/wire"
 	playwright "github.com/playwright-community/playwright-go"
-	"github.com/volatiletech/null/v8"
+	"github.com/volatiletech/null/v9"
 )
 
 var _ domain.Web = (*Web)(nil)

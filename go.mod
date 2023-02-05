@@ -10,7 +10,6 @@ require (
 	github.com/playwright-community/playwright-go v0.2000.1
 	github.com/samber/lo v1.37.0
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.20
-	github.com/volatiletech/null/v8 v8.1.2
 	github.com/volatiletech/null/v9 v9.0.0
 	go.opentelemetry.io/contrib/detectors/gcp v1.6.0
 	go.opentelemetry.io/otel v1.12.0
@@ -26,20 +25,15 @@ require (
 	cloud.google.com/go/trace v1.4.0 // indirect
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.35.0 // indirect
 	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 // indirect
-	github.com/friendsofgo/errors v0.9.2 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
-	github.com/gofrs/uuid v3.2.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.1 // indirect
 	github.com/googleapis/gax-go/v2 v2.7.0 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.20 // indirect
-	github.com/volatiletech/inflect v0.0.1 // indirect
-	github.com/volatiletech/randomize v0.0.1 // indirect
-	github.com/volatiletech/strmangle v0.0.1 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
@@ -47,7 +41,6 @@ require (
 	golang.org/x/oauth2 v0.0.0-20221014153046-6fdb5e3db783 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
-	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/api v0.103.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20221202195650-67e5cbc046fd // indirect
