@@ -3,7 +3,7 @@ module github.com/Pranc1ngPegasus/playwright-go-practice
 go 1.19
 
 require (
-	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.10.1
+	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.11.0
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/propagator v0.35.0
 	github.com/Netflix/go-env v0.0.0-20220526054621-78278af1949d
 	github.com/google/wire v0.5.0
