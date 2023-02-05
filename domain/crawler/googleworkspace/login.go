@@ -1,15 +1,11 @@
 package googleworkspace
 
-import "context"
+import (
+	"context"
+
+	"github.com/playwright-community/playwright-go"
+)
 
 type Login interface {
-	Do(context.Context, LoginInput) error
+	Do(context.Context, playwright.Page, LoginInput) error
 }
-
-type (
-	LoginInput struct {
-		Email    string
-		Password string
-		TOTP     string
-	}
-)
