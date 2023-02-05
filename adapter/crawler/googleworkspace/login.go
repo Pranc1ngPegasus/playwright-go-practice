@@ -3,7 +3,6 @@ package googleworkspace
 import (
 	"context"
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/Pranc1ngPegasus/playwright-go-practice/domain/client"
@@ -12,7 +11,6 @@ import (
 	"github.com/Pranc1ngPegasus/playwright-go-practice/domain/tracer"
 	"github.com/google/wire"
 	"github.com/playwright-community/playwright-go"
-	"github.com/volatiletech/null/v8"
 )
 
 var _ domain.Login = (*Login)(nil)
@@ -41,40 +39,17 @@ func NewLogin(
 }
 
 const (
-	url = "https://admin.google.com/AdminHome?hl=en"
+	loginURL = "https://admin.google.com/AdminHome?hl=en"
 )
 
-func (c *Login) Do(ctx context.Context, input domain.LoginInput) error {
+func (c *Login) Do(ctx context.Context, page playwright.Page, input domain.LoginInput) error {
 	ctx, span := c.tracer.Tracer().Start(ctx, "crawler.GoogleWorkspace.Login")
 	defer span.End()
 
-	browserCtx, err := c.web.NewContext()
-	if err != nil {
-		return fmt.Errorf("failed to initialize crawler: %w", err)
-	}
-	defer func() {
-		browserCtx.Close()
-	}()
-
-	if err := browserCtx.Tracing().Start(); err != nil {
-		return fmt.Errorf("failed to start tracer: %w", err)
-	}
-	defer func() {
-		browserCtx.Tracing().Stop()
-	}()
-
-	page, err := browserCtx.NewPage()
-	if err != nil {
-		return fmt.Errorf("failed to create new page: %w", err)
-	}
-	defer func() {
-		page.Close()
-	}()
-
-	if _, err := page.Goto(url, playwright.PageGotoOptions{
+	if _, err := page.Goto(gmailSafetyURL, playwright.PageGotoOptions{
 		WaitUntil: playwright.WaitUntilStateDomcontentloaded,
 	}); err != nil {
-		return fmt.Errorf("failed to visit URL(%s): %w", url, err)
+		return fmt.Errorf("failed to visit URL(%s): %w", gmailSafetyURL, err)
 	}
 
 	// メールアドレスを入力
@@ -90,18 +65,6 @@ func (c *Login) Do(ctx context.Context, input domain.LoginInput) error {
 	// MFA認証
 	if err := c.challengeMFA(ctx, page, input.TOTP); err != nil {
 		return fmt.Errorf("failed to challenge MFA: %w", err)
-	}
-
-	buf, err := page.Screenshot(playwright.PageScreenshotOptions{
-		FullPage: null.BoolFrom(true).Ptr(),
-		Type:     playwright.ScreenshotTypePng,
-	})
-	if err != nil {
-		return fmt.Errorf("failed to take screenshot: %w", err)
-	}
-
-	if err := os.WriteFile("screenshot.png", buf, os.ModePerm); err != nil {
-		return fmt.Errorf("failed to write screenshot: %w", err)
 	}
 
 	return nil
