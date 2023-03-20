@@ -8,7 +8,7 @@ require (
 	github.com/Netflix/go-env v0.0.0-20220526054621-78278af1949d
 	github.com/google/wire v0.5.0
 	github.com/playwright-community/playwright-go v0.2000.1
-	github.com/samber/lo v1.37.0
+	github.com/samber/lo v1.38.0
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.20
 	github.com/volatiletech/null/v9 v9.0.0
 	go.opentelemetry.io/contrib/detectors/gcp v1.14.0
