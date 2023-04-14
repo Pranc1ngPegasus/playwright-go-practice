@@ -59,7 +59,7 @@ func (c *Login) Do(ctx context.Context, page playwright.Page, input domain.Login
 
 	// パスワードを入力
 	if err := c.fillPassword(ctx, page, input.Password); err != nil {
-		return fmt.Errorf("failed to fill email: %w", err)
+		return fmt.Errorf("failed to fill password: %w", err)
 	}
 
 	// MFA認証
