@@ -4,6 +4,7 @@ type Configuration interface {
 	Common() *Common
 	GCP() *GCP
 	Server() *Server
+	Scan() *Scan
 }
 
 type (
@@ -11,6 +12,7 @@ type (
 		Common Common
 		GCP    GCP
 		Server Server
+		Scan   Scan
 	}
 
 	Common struct {
@@ -23,5 +25,11 @@ type (
 
 	Server struct {
 		Port string `env:"PORT"`
+	}
+
+	Scan struct {
+		Email    string `env:"SCAN_EMAIL"`
+		Password string `env:"SCAN_PASSWORD"`
+		TOTP     string `env:"SCAN_TOTP"`
 	}
 )
