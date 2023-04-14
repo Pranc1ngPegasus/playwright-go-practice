@@ -4,8 +4,11 @@
 package main
 
 import (
+	"net/http"
+
 	gwCrawler "github.com/Pranc1ngPegasus/playwright-go-practice/adapter/crawler/googleworkspace"
-	domaincrawler "github.com/Pranc1ngPegasus/playwright-go-practice/domain/crawler/googleworkspace"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/handler"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/server"
 	domainlogger "github.com/Pranc1ngPegasus/playwright-go-practice/domain/logger"
 	domaintracer "github.com/Pranc1ngPegasus/playwright-go-practice/domain/tracer"
 	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/client"
@@ -16,9 +19,9 @@ import (
 )
 
 type app struct {
-	logger  domainlogger.Logger
-	tracer  domaintracer.Tracer
-	crawler domaincrawler.GoogleWorkspace
+	logger domainlogger.Logger
+	server *http.Server
+	tracer domaintracer.Tracer
 }
 
 func initialize() (*app, error) {
@@ -26,6 +29,8 @@ func initialize() (*app, error) {
 		configuration.NewConfigurationSet,
 		logger.NewLoggerSet,
 		tracer.NewTracerSet,
+		handler.NewHandlerSet,
+		server.NewServer,
 		gwCrawler.NewLoginSet,
 		gwCrawler.NewGoogleWorkspaceSet,
 		client.NewWebSet,

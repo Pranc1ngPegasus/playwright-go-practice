@@ -8,13 +8,15 @@ package main
 
 import (
 	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/crawler/googleworkspace"
-	googleworkspace2 "github.com/Pranc1ngPegasus/playwright-go-practice/domain/crawler/googleworkspace"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/handler"
+	"github.com/Pranc1ngPegasus/playwright-go-practice/adapter/server"
 	logger2 "github.com/Pranc1ngPegasus/playwright-go-practice/domain/logger"
 	tracer2 "github.com/Pranc1ngPegasus/playwright-go-practice/domain/tracer"
 	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/client"
 	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/configuration"
 	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/logger"
 	"github.com/Pranc1ngPegasus/playwright-go-practice/infra/tracer"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -45,10 +47,12 @@ func initialize() (*app, error) {
 		return nil, err
 	}
 	googleWorkspace := googleworkspace.NewGoogleWorkspace(tracerTracer, web, login, gmailSafety)
+	handlerHandler := handler.NewHandler(configurationConfiguration, googleWorkspace)
+	httpServer := server.NewServer(configurationConfiguration, handlerHandler)
 	mainApp := &app{
-		logger:  loggerLogger,
-		tracer:  tracerTracer,
-		crawler: googleWorkspace,
+		logger: loggerLogger,
+		server: httpServer,
+		tracer: tracerTracer,
 	}
 	return mainApp, nil
 }
@@ -56,7 +60,7 @@ func initialize() (*app, error) {
 // wire.go:
 
 type app struct {
-	logger  logger2.Logger
-	tracer  tracer2.Tracer
-	crawler googleworkspace2.GoogleWorkspace
+	logger logger2.Logger
+	server *http.Server
+	tracer tracer2.Tracer
 }

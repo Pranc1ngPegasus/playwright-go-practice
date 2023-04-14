@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"os"
-
-	"github.com/Pranc1ngPegasus/playwright-go-practice/domain/crawler/googleworkspace"
 )
 
 var (
@@ -26,14 +24,8 @@ func main() {
 	}
 
 	ctx := context.Background()
-	if err := app.crawler.Do(ctx, googleworkspace.LoginInput{
-		Email:    email,
-		Password: password,
-		TOTP:     totp,
-	}); err != nil {
-		app.logger.Error(ctx, "failed to crawl", app.logger.Field("err", err))
-
-		return
+	if err := app.server.ListenAndServe(); err != nil {
+		app.logger.Error(ctx, "failed to start server", app.logger.Field("err", err))
 	}
 
 	if err := app.tracer.Shutdown(ctx); err != nil {
