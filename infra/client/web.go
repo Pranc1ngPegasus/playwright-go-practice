@@ -6,7 +6,6 @@ import (
 	domain "github.com/Pranc1ngPegasus/playwright-go-practice/domain/client"
 	"github.com/google/wire"
 	playwright "github.com/playwright-community/playwright-go"
-	"github.com/volatiletech/null/v9"
 )
 
 var _ domain.Web = (*Web)(nil)
@@ -22,6 +21,7 @@ type Web struct {
 
 func NewWeb() (*Web, error) {
 	pw, err := playwright.Run(&playwright.RunOptions{
+		DriverDirectory:     "/root/.cache",
 		SkipInstallBrowsers: true,
 	})
 	if err != nil {
@@ -29,8 +29,8 @@ func NewWeb() (*Web, error) {
 	}
 
 	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
-		Channel:  null.StringFrom("chrome").Ptr(),
-		Headless: null.BoolFrom(false).Ptr(),
+		// Channel:  null.StringFrom("chrome").Ptr(),
+		// Headless: null.BoolFrom(false).Ptr(),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to launch browser: %w", err)
